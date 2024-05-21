@@ -9,6 +9,13 @@ import {Link, Card, CardMedia, Chip, Rating, Stack, Typography } from '@mui/mate
 import {Button} from '@mui/material';
 import Modal from '@mui/material/Modal';
 import weatherBrand from '../../assets/weatherBrand.png';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { getWeatherData } from '../../apis/apiProvider';
+
+import axios from 'axios';
+
+// const {AmbientWeatherApi} = require('ambient-weather-api');
 
 const style = {
   position: 'absolute',
@@ -17,8 +24,6 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: '60vw',
   maxWidth: '80vw',
-  // height: '80vh',
-  // maxHeight: '80vh',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -29,11 +34,40 @@ const style = {
 
 export const Home = () => {
   const [enlargeOpen, setEnlargeOpen] = React.useState(false);
-  const tdayData = new Date();
-  console.log('getData', tdayData.getDate(), tdayData.getMonth(), tdayData.getFullYear(), tdayData.getHours(), tdayData.getMinutes());
+  
+  const [isLoadedData, setIsLoadedData] = React.useState(false);
+  const [wDaydata, setWDayData] = React.useState(new Date());
+  const [tempData, setTempData] = React.useState(0);
+  const [dewData, setDewData] = React.useState(0);
+  const [winddir, setWinddir] = React.useState(0);
+  const [windGuest, setWindGuest] = React.useState(0);
+  const [windSpeed, setWindSpeed] = React.useState(0);
+  const [barometer, setBarometer] = React.useState(0);
   const handleClose = () => {
     setEnlargeOpen(false);
   }
+  
+  React.useEffect(() => {
+    console.log('calling data');
+    loadWeatherData();
+  }, [])
+  
+
+  const loadWeatherData = async () => {
+    const weatherData = await getWeatherData();
+    console.log(weatherData);
+    if(!weatherData) return;
+    const dateVal = new Date(weatherData[0].date);
+    setWDayData(dateVal);
+    setTempData(weatherData[0].tempf);
+    setDewData(weatherData[0].dewPoint);
+    setWinddir(weatherData[0].winddir);
+    setWindGuest(weatherData[0].windgustmph);
+    setWindSpeed(weatherData[0].windspeedmph);
+    setBarometer(weatherData[0].baromabsin);
+    setIsLoadedData(true);
+  }
+
   const handleOpen = () => {
     setEnlargeOpen(true);
   }
@@ -137,40 +171,47 @@ export const Home = () => {
               <Grid item xs={12}>
                 <img src={weatherBrand}/>
               </Grid>
-              <Grid item xs={12} marginY={3}>
+              {!isLoadedData &&
+                <Grid width='100%'>
+                  <Stack direction="row" width='100%' height={400} spacing={10} alignItems='center' justifyContent='center' useFlexGap>
+                    <CircularProgress />
+                  </Stack>
+                </Grid>
+              }
+              {isLoadedData && <><Grid item xs={12} marginY={3}>
                 <Stack direction="row" spacing={15} alignItems='center' justifyContent='center' useFlexGap>
                   <Stack direction='column' useFlexGap>
-                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{String((tdayData.getMonth()+1)).padStart(2, '0')} / {String(tdayData.getDate()).padStart(2, '0')}</Typography>
+                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{String((wDaydata.getMonth()+1)).padStart(2, '0')} / {String(wDaydata.getDate()).padStart(2, '0')}</Typography>
                   </Stack>
                   <Stack direction='column' useFlexGap>
-                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{String(tdayData.getHours()).padStart(2, '0')} : {String(tdayData.getMinutes()).padStart(2, '0')}</Typography>
+                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{String(wDaydata.getHours()).padStart(2, '0')} : {String(wDaydata.getMinutes()).padStart(2, '0')}</Typography>
                   </Stack>
                 </Stack>
               </Grid>
               <Grid item xs={12} marginY={3}>
                 <Stack direction="row" spacing={15} alignItems='center' justifyContent='center' useFlexGap>
                   <Stack direction='column' useFlexGap>
-                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">31 &ordm;</Typography>
+                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{tempData} &ordm;</Typography>
                     <Typography variant='body2' sx={{textAlign: 'center'}}>TEMP</Typography>
                   </Stack>
                   <Stack direction='column' useFlexGap>
-                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">25 &ordm;</Typography>
+                    <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{dewData} &ordm;</Typography>
                     <Typography variant='body2' sx={{textAlign: 'center'}}>DEW POINT</Typography>
                   </Stack>
                 </Stack>
               </Grid>
               <Grid item xs={12} marginY={3}>
                 <Stack direction='column' spacing={2} useFlexGap>
-                  <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">360 &#x2da;@ 12 G 15</Typography>
+                  <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{winddir} &#x2da;@ {windGuest} G {windSpeed}</Typography>
                   <Typography variant='body2' sx={{textAlign: 'center'}}>WIND (KTS)</Typography>
                 </Stack>
               </Grid>
               <Grid item xs={12} marginY={3}>
                 <Stack direction='column' spacing={1} useFlexGap>
-                  <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">29.92 &#8710;</Typography>
+                  <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h3">{barometer} &#8710;</Typography>
                   <Typography variant='body2' sx={{textAlign: 'center'}}>BAROMETER (inHg)</Typography>
                 </Stack>
-              </Grid>
+              </Grid></>}
               <Grid item xs={12} sx={{marginTop: '3rem'}}> 
                 <Stack direction='column' textAlign={'center'} spacing={3} useFlexGap>
                   <Link href="/wxtrends" underline="always">

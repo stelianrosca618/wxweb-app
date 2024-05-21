@@ -41,9 +41,12 @@ const theme = createTheme({
           color: '#fff',
           borderColor: '#fff'
         },
+        MuiFocused : {
+          borderrColor: '#ff0'
+        },
         inputRoot: {
           color: '#fff',
-          borderColor: '#fff'
+          borderColor: '#fff',
         },
         clearIndicator: {
           color: 'white'
@@ -52,7 +55,6 @@ const theme = createTheme({
           color: '#fff'
         },
       }
-      
     },
     MuiInputLabel: {
       styleOverrides: {
@@ -64,7 +66,8 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          borderColor: '#fff'
+          borderColor: '#fff',
+          
         }
       }
     },

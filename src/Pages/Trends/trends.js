@@ -3,6 +3,8 @@ import {Link, Box, Container, Grid, Button, Stack, Typography } from "@mui/mater
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { mangoFusionPalette } from '@mui/x-charts/colorPalettes';
+import { getWeatherTrends } from '../../apis/apiProvider';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const defaultSeries = [
   { id: '1', data: [4, 5, 1, 2, 3, 3, 2], area: true, stack: '1' },
@@ -25,6 +27,47 @@ export const Trends = () => {
   const [wtSeries, setWtSeries] = React.useState([7, 4, 6, 7, 2, 3, 5]);
   const [nbSeries, setNbSeries] = React.useState(3);
   const [skipAnimation, setSkipAnimation] = React.useState(false);
+
+  const [xAxisData, setXAxisData] = React.useState([]);
+  const [dewPoints, setDewPoints] = React.useState([]);
+  const [tempPoints, setTempPoints] = React.useState([]);
+  const [windSpeeds, setWindSpeeds] = React.useState([]);
+  const [windGuests, setWindGuests] = React.useState([]);
+  const [windDirs, setWindDirs] = React.useState([]);
+  const [baromaters, setBaromaters] = React.useState([]);
+  const [isloaded, setIsLoaded] = React.useState(false);
+  React.useEffect(() => {
+    getTrendsData();
+  }, [])
+
+  const getTrendsData = async () => {
+    const trendsData = await getWeatherTrends();
+    console.log('trendsData', trendsData)
+    let tmpXAxis = []; let tmpWSpeeds = [];
+    let tmpDews = []; let tmpWGuests = [];
+    let tmpTemps = []; let tmpWDirs = [];
+    let tmpBarometers = [];
+    trendsData.map(tItem => {
+      const itemDate = new Date(tItem.date);
+      console.log(itemDate.getDate(), itemDate.getMonth(), itemDate.getHours(), itemDate.getMinutes(), itemDate.getSeconds())
+
+      tmpXAxis.push(`${itemDate.getHours()}:${itemDate.getMinutes()}`);
+      tmpDews.push(tItem.dewPoint)
+      tmpTemps.push(tItem.tempf)
+      tmpWSpeeds.push(tItem.windspeedmph);
+      tmpWGuests.push(tItem.windgustmph);
+      tmpWDirs.push(tItem.winddir);
+      tmpBarometers.push(tItem.baromabsin);
+    });
+    setXAxisData(tmpXAxis);
+    setDewPoints(tmpDews);
+    setTempPoints(tmpTemps);
+    setWindSpeeds(tmpWSpeeds);
+    setWindGuests(tmpWGuests);
+    setWindDirs(tmpWDirs);
+    setBaromaters(tmpBarometers);
+    setIsLoaded(true);
+  }
 
   return (
     <div>
@@ -49,54 +92,60 @@ export const Trends = () => {
         </Container>
       </Box>
       <Box>
-        <Container>
-          <Box>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <LineChart
-                  xAxis={[{ data: [1, 2, 3, 4, 5, 6, 7] }]}
-                  series={[
-                    { data: wxSeries, label: 'WIND SPEED'},
-                    { data: wtSeries, label: 'WIND GUEST'},
-                  ]}
-                  skipAnimation={skipAnimation}
-                  height={400}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <LineChart
-                  xAxis={[{ data: [1, 2, 3, 4, 5, 6, 7] }]}
-                  series={[
-                    { data: wxSeries, label: 'WIND DIRECTION'},
-                  ]}
-                  skipAnimation={skipAnimation}
-                  height={400}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <LineChart
-                  xAxis={[{ data: [1, 2, 3, 4, 5, 6, 7] }]}
-                  series={[
-                    { data: wxSeries, label: 'TEMPERATURE'},
-                    { data: wtSeries, label: 'DEW POINT'},
-                  ]}
-                  skipAnimation={skipAnimation}
-                  height={400}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <LineChart
-                  xAxis={[{ data: [1, 2, 3, 4, 5, 6, 7] }]}
-                  series={[
-                    { data: wxSeries, label: 'BAROMENTIC PRESSURE'},
-                  ]}
-                  skipAnimation={skipAnimation}
-                  height={400}
-                />
-              </Grid>
+        <Grid container spacing={3}>
+          {!isloaded &&
+            <Grid width='100%'>
+              <Stack direction="row" width='100%' height={400} spacing={10} alignItems='center' justifyContent='center' useFlexGap>
+                <CircularProgress />
+              </Stack>
             </Grid>
-          </Box>
-        </Container>
+          }
+          {isloaded && <>
+            <Grid item xs={12}>
+              <LineChart
+                xAxis={[{scaleType: 'point', data: xAxisData }]}
+                series={[
+                  {data: tempPoints, label: 'TEMPERATURE', showMark: false},
+                  { data: dewPoints, label: 'DEW POINTS', showMark: false},
+                  ]}
+                skipAnimation={skipAnimation}
+                height={400}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <LineChart
+                xAxis={[{scaleType: 'point', data: xAxisData }]}
+                series={[
+                    { data: windSpeeds, label: 'WIND SPEED', showMark: false},
+                    { data: windGuests, label: 'WIND GUEST', showMark: false},
+                  ]}
+                skipAnimation={skipAnimation}
+                height={400}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <LineChart
+                xAxis={[{scaleType: 'point', data: xAxisData }]}
+                series={[
+                    { data: windDirs, label: 'WIND DIRECTION', showMark: false},
+                  ]}
+                skipAnimation={skipAnimation}
+                height={400}
+              />
+            </Grid>
+            <Grid item xs={12}>
+                <LineChart
+                  xAxis={[{scaleType: 'point', data: xAxisData }]}
+                  series={[
+                    { data: baromaters, label: 'BAROMENTIC PRESSURE', showMark: false},
+                  ]}
+                  skipAnimation={skipAnimation}
+                  height={400}
+                />
+            </Grid>
+          </>}
+        </Grid>
+      
       </Box>
     </div>
   )
