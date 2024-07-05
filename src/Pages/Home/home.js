@@ -89,13 +89,13 @@ export const Home = () => {
                     />
                     <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined">ENLARGE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" size="small">ENLARGE</Button>
                       </Stack>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Typography sx={{textAlign: 'center'}}>Camera 1 NW</Typography>
+                        <Typography variant='body1' sx={{textAlign: 'center'}}>Camera 1 NW</Typography>
                       </Stack>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined">TIME-LAPSE</Button>
+                        <Button variant="outlined" size="small">TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
