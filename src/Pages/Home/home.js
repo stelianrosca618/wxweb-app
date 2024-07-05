@@ -246,7 +246,7 @@ export const Home = () => {
         aria-describedby="keep-mounted-modal-description"
       >
         <Box sx={style}>
-          <img style={{width: '100%'}} src={testImg} />
+          <img style={{maxWidth: '500px'}} src={testImg} />
         </Box>
       </Modal>
     </div>
