@@ -177,8 +177,8 @@ export const Home = () => {
           </Grid>
           <Grid item xs={5}>
             <Grid container spacing={1} padding={2}>
-              <Grid item xs={12}>
-                <img style={{width: '100%'}} src={weatherBrand}/>
+              <Grid item xs={12} textAlign={'center'}>
+                <img style={{maxWidth: '100%', maxHeight: "120px", margin: "auto"}} src={weatherBrand}/>
               </Grid>
               {!isLoadedData &&
                 <Grid width='100%'>
