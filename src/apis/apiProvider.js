@@ -1,6 +1,6 @@
 import axios from 'axios';
-const apiProd = 'http://164.92.67.83:4000/'
-const apiLocal = 'http://localhost:4000/'
+const apiProd = 'http://164.92.67.83:4000'
+const apiLocal = 'http://localhost:4000'
 export const getWeatherData = async () => {
     let weatherData = null;
     await axios({
