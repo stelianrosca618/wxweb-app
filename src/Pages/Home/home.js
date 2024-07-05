@@ -87,15 +87,17 @@ export const Home = () => {
                       image={testImg}
                       onClick={() => {handleOpen()}}
                     />
-                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
-                      <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined" size="small">ENLARGE</Button>
-                      </Stack>
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
                       <Stack direction="column" spacing={0.5} useFlexGap>
                         <Typography variant='body1' sx={{textAlign: 'center'}}>Camera 1 NW</Typography>
                       </Stack>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined" size="small">TIME-LAPSE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" size="small" sx={{padding: "3px"}}>ENLARGE</Button>
+                      </Stack>
+                      <Stack direction="column" spacing={0.5} useFlexGap>
+                        <Button variant="outlined" size="small" sx={{padding: "3px"}}>TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
