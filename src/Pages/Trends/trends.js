@@ -23,9 +23,9 @@ const defaultSeries = [
 
 export const Trends = () => {
   // const [series, setSeries] = React.useState(defaultSeries);
-  const [wxSeries, setWxSeries] = React.useState([4, 5, 1, 2, 3, 3, 2]);
-  const [wtSeries, setWtSeries] = React.useState([7, 4, 6, 7, 2, 3, 5]);
-  const [nbSeries, setNbSeries] = React.useState(3);
+  // const [wxSeries, setWxSeries] = React.useState([4, 5, 1, 2, 3, 3, 2]);
+  // const [wtSeries, setWtSeries] = React.useState([7, 4, 6, 7, 2, 3, 5]);
+  // const [nbSeries, setNbSeries] = React.useState(3);
   const [skipAnimation, setSkipAnimation] = React.useState(false);
 
   const [xAxisData, setXAxisData] = React.useState([]);
@@ -37,7 +37,8 @@ export const Trends = () => {
   const [baromaters, setBaromaters] = React.useState([]);
   const [isloaded, setIsLoaded] = React.useState(false);
   React.useEffect(() => {
-    getTrendsData();
+    getTrendsData()
+    
   }, [])
 
   const getTrendsData = async () => {
