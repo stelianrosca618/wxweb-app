@@ -117,10 +117,10 @@ export const Home = () => {
                     </Stack>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={1} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined" sx={{padding: "3px"}}>ENLARGE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" size="small" sx={{padding: "3px"}}>ENLARGE</Button>
                       </Stack>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined" sx={{padding: "3px"}}>TIME-LAPSE</Button>
+                        <Button variant="outlined" size="small" sx={{padding: "3px"}}>TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
@@ -140,10 +140,10 @@ export const Home = () => {
                     </Stack>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
                       <Stack direction='column' spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined" sx={{padding: "3px"}}>ENLARGE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" size="small" sx={{padding: "3px"}}>ENLARGE</Button>
                       </Stack>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined" sx={{padding: "3px"}}>TIME-LAPSE</Button>
+                        <Button variant="outlined" size="small" sx={{padding: "3px"}}>TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
@@ -163,11 +163,11 @@ export const Home = () => {
                     </Stack>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined" sx={{padding: "3px"}}>ENLARGE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" size="small" sx={{padding: "3px"}}>ENLARGE</Button>
                       </Stack>
                      
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined" sx={{padding: "3px"}}>TIME-LAPSE</Button>
+                        <Button variant="outlined" sx={{padding: "3px"}} size="small">TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
@@ -182,7 +182,7 @@ export const Home = () => {
               </Grid>
               {!isLoadedData &&
                 <Grid width='100%'>
-                  <Stack direction="row" width='100%' height={400} spacing={10} alignItems='center' justifyContent='center' useFlexGap>
+                  <Stack direction="row" width='100%' height={200} spacing={10} alignItems='center' justifyContent='center' useFlexGap>
                     <CircularProgress />
                   </Stack>
                 </Grid>
