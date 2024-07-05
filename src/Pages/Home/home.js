@@ -76,7 +76,7 @@ export const Home = () => {
     <div>
       <Box sx={{padding: '3rem'}}>
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={7}>
             <Box>
               <Grid container spacing={2} padding={4}>
                 <Grid item xs={6}>
@@ -175,7 +175,7 @@ export const Home = () => {
               </Grid>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <Grid container spacing={1} padding={2}>
               <Grid item xs={12}>
                 <img style={{width: '100%'}} src={weatherBrand}/>
@@ -187,7 +187,7 @@ export const Home = () => {
                   </Stack>
                 </Grid>
               }
-              {isLoadedData && <><Grid item xs={12} marginY={3}>
+              {isLoadedData && <><Grid item xs={12} marginY={1}>
                 <Stack direction="row" spacing={15} alignItems='center' justifyContent='center' useFlexGap>
                   <Stack direction='column' useFlexGap>
                     <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h5">{String((wDaydata.getMonth()+1)).padStart(2, '0')} / {String(wDaydata.getDate()).padStart(2, '0')}</Typography>
@@ -197,7 +197,7 @@ export const Home = () => {
                   </Stack>
                 </Stack>
               </Grid>
-              <Grid item xs={12} marginY={3}>
+              <Grid item xs={12} marginY={1}>
                 <Stack direction="row" spacing={15} alignItems='center' justifyContent='center' useFlexGap>
                   <Stack direction='column' useFlexGap>
                     <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h5">{tempData} &ordm;</Typography>
@@ -209,13 +209,13 @@ export const Home = () => {
                   </Stack>
                 </Stack>
               </Grid>
-              <Grid item xs={12} marginY={3}>
+              <Grid item xs={12} marginY={1}>
                 <Stack direction='column' spacing={2} useFlexGap>
                   <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h5">{winddir} &#x2da;@ {windGuest} G {windSpeed}</Typography>
                   <Typography variant='body2' sx={{textAlign: 'center'}}>WIND (KTS)</Typography>
                 </Stack>
               </Grid>
-              <Grid item xs={12} marginY={3}>
+              <Grid item xs={12} marginY={1}>
                 <Stack direction='column' spacing={1} useFlexGap>
                   <Typography sx={{textAlign: 'center', fontWeight: 'bold'}} variant="h5">{barometer} &#8710;</Typography>
                   <Typography variant='body2' sx={{textAlign: 'center'}}>BAROMETER (inHg)</Typography>
