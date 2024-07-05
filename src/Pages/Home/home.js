@@ -87,12 +87,12 @@ export const Home = () => {
                       image={testImg}
                       onClick={() => {handleOpen()}}
                     />
-                    <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
                       <Stack direction="column" spacing={0.5} useFlexGap>
                         <Typography variant='body1' sx={{textAlign: 'center'}}>Camera 1 NW</Typography>
                       </Stack>
                     </Stack>
-                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={1} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
                         <Button onClick={() => {handleOpen()}} variant="outlined" size="small" sx={{padding: "3px"}}>ENLARGE</Button>
                       </Stack>
@@ -110,15 +110,17 @@ export const Home = () => {
                       image={testImg}
                       onClick={() => {handleOpen()}}
                     />
-                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
-                      <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined">ENLARGE</Button>
-                      </Stack>
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
                       <Stack direction="column" spacing={0.5} useFlexGap>
                         <Typography sx={{textAlign: 'center'}}>Camera 2 NE</Typography>
                       </Stack>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={1} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined">TIME-LAPSE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" sx={{padding: "3px"}}>ENLARGE</Button>
+                      </Stack>
+                      <Stack direction="column" spacing={0.5} useFlexGap>
+                        <Button variant="outlined" sx={{padding: "3px"}}>TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
@@ -131,15 +133,17 @@ export const Home = () => {
                       image={testImg}
                       onClick={() => {handleOpen()}}
                     />
-                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
-                      <Stack direction='column' spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined">ENLARGE</Button>
-                      </Stack>
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
                       <Stack direction="column" spacing={0.5} useFlexGap>
                         <Typography sx={{textAlign: 'center'}}>Camera 4 SW</Typography>
                       </Stack>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
+                      <Stack direction='column' spacing={0.5} useFlexGap>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" sx={{padding: "3px"}}>ENLARGE</Button>
+                      </Stack>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined">TIME-LAPSE</Button>
+                        <Button variant="outlined" sx={{padding: "3px"}}>TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
@@ -152,15 +156,18 @@ export const Home = () => {
                       image={testImg}
                       onClick={() => {handleOpen()}}
                     />
-                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
-                      <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button onClick={() => {handleOpen()}} variant="outlined">ENLARGE</Button>
-                      </Stack>
+                    <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
                       <Stack direction="column" spacing={0.5} useFlexGap>
                         <Typography sx={{textAlign: 'center'}}>Camera 3 SE</Typography>
                       </Stack>
+                    </Stack>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3} p={2} useFlexGap>
                       <Stack direction="column" spacing={0.5} useFlexGap>
-                        <Button variant="outlined">TIME-LAPSE</Button>
+                        <Button onClick={() => {handleOpen()}} variant="outlined" sx={{padding: "3px"}}>ENLARGE</Button>
+                      </Stack>
+                     
+                      <Stack direction="column" spacing={0.5} useFlexGap>
+                        <Button variant="outlined" sx={{padding: "3px"}}>TIME-LAPSE</Button>
                       </Stack>
                     </Stack>
                   </Card>
