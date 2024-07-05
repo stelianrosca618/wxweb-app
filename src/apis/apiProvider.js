@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+const apiProd = 'http://164.92.67.83:4000/'
+const apiLocal = 'http://localhost:4000/'
 export const getWeatherData = async () => {
     let weatherData = null;
     await axios({
         method:'post',
-        url: 'http://localhost:4000/wximgs/readWeatherData',
+        url: `${apiProd}/wximgs/readWeatherData`,
         data: {},
       }).then(function (response) {
         weatherData = response.data;
@@ -20,7 +21,7 @@ export const getWeatherTrends = async () => {
     let trendsData = [];
     await axios({
         method:'post',
-        url: 'http://localhost:4000/wximgs/readWeadtheTrends',
+        url: `${apiProd}/wximgs/readWeadtheTrends`,
         data: {},
       }).then(function (response) {
         trendsData = response.data;
