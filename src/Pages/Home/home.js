@@ -1,11 +1,8 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { Height, Image } from '@material-ui/icons';
 import testImg from '../../assets/data/cam1,m240408180000864.jpg'
-import {Link, Card, CardMedia, Chip, Rating, Stack, Typography } from '@mui/material';
+import {Link, Card, CardMedia, Stack, Typography } from '@mui/material';
 import {Button} from '@mui/material';
 import Modal from '@mui/material/Modal';
 import weatherBrand from '../../assets/weatherBrand.png';
@@ -22,7 +19,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '60vw',
+  width: 'auto',
   maxWidth: '80vw',
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -249,6 +246,7 @@ export const Home = () => {
           <img style={{maxWidth: '500px'}} src={testImg} />
         </Box>
       </Modal>
+      
     </div>
   )
 }
