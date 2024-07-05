@@ -74,7 +74,7 @@ export const Home = () => {
 
   return (
     <div>
-      <Box sx={{padding: '3rem'}}>
+      <Box sx={{padding: '1rem'}}>
         <Grid container spacing={2}>
           <Grid item xs={7}>
             <Box>
