@@ -1,6 +1,23 @@
 import axios from 'axios';
 const apiProd = 'http://164.92.67.83:4000'
 const apiLocal = 'http://localhost:4000'
+
+export const getReadImgfile = async () => {
+  let weatherData = null;
+    await axios({
+        method:'post',
+        url: `${apiProd}/wximgs/readImgfile`,
+        data: {},
+      }).then(function (response) {
+        weatherData = response.data;
+      }).catch(function (error) {
+        weatherData = null;
+        console.log('errors', error)
+      })
+
+    return weatherData;
+}
+
 export const getWeatherData = async () => {
     let weatherData = null;
     await axios({

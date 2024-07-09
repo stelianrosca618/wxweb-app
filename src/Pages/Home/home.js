@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal';
 import weatherBrand from '../../assets/weatherBrand.png';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { getWeatherData } from '../../apis/apiProvider';
+import { getWeatherData, getReadImgfile } from '../../apis/apiProvider';
 
 const style = {
   position: 'absolute',
@@ -67,6 +67,11 @@ export const Home = () => {
 
   const handleOpen = () => {
     setEnlargeOpen(true);
+  }
+
+  const getImagefiles = async () => {
+    const imgRes = await getReadImgfile();
+    console.log(imgRes);
   }
 
   return (
@@ -242,7 +247,7 @@ export const Home = () => {
           aria-describedby="keep-mounted-modal-description"
         >
           <Box sx={style}>
-            <img style={{maxWidth: '500px'}} src={testImg} />
+            <img style={{maxWidth: '500px'}} src={testImg} onClick={getImagefiles()}/>
           </Box>
         </Modal>
       </Container>
