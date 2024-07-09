@@ -253,7 +253,7 @@ export const Home = () => {
           aria-describedby="keep-mounted-modal-description"
         >
           <Box sx={style}>
-            <img style={{maxWidth: '500px'}} src={testImg} onClick={() => getImagefiles()}/>
+            <img style={{maxWidth: '500px'}} src={imagePath} onClick={() => getImagefiles()}/>
           </Box>
         </Modal>
       </Container>
