@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link,  Card, CardMedia, Box, Container, Grid, Button, Stack, Typography } from "@mui/material"
+import {Link,  Card, CardMedia, Box, Container, Grid, Button, Stack, Typography, Select, MenuItem, InputLabel, FormControl } from "@mui/material"
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { mangoFusionPalette } from '@mui/x-charts/colorPalettes';
@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import testImg from '../../assets/data/cam1,m240408180000864.jpg'
 import Modal from '@mui/material/Modal';
+import { getReadImgfile } from '../../apis/apiProvider';
 
 const style = {
   position: 'absolute',
@@ -21,17 +22,17 @@ const style = {
   px: 4,
   pb: 3,
 };
-
+const hostPath = 'https://denalicams.com/cam_images/cam4/';
 export const Archive = () => {
   const [enlargeOpen, setEnlargeOpen] = React.useState(false);
-  const yearlist = [1990, 1991, 1992, 1993, 1994, 1995, 1996,1997, 1998, 1999, 2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024]
+  const yearlist = [2023, 2024]
   const tdayData = new Date();
   const [tdate, setTdate] = React.useState(tdayData.getDate());
   const [tyear, setTyear] = React.useState(tdayData.getFullYear());
   const [tmonth, setTmonth] = React.useState(tdayData.getMonth() + 1);
-  const [thours, setThours] = React.useState(tdayData.getHours());
+  const [thours, setThours] = React.useState(tdayData.getHours()+1);
   const [tmins, setTmins] = React.useState(tdayData.getMinutes());
-
+  const [loaderpath, setLoaderPath] = React.useState(testImg);
   const monthlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   let daylist = [];
   let hrList = [];
@@ -50,6 +51,37 @@ export const Archive = () => {
   }
   const handleOpen = () => {
     setEnlargeOpen(true);
+  }
+
+  const onYearChange = (e) => {
+    console.log(e);
+    setTyear(e.target.value);
+  }
+  const onMonthChange = (e) => {
+    console.log(e);
+    setTmonth(e.target.value);
+  }
+  const onDayChange = (e) => {
+    setTdate(e.target.value);
+  }
+  const onHourChange = (e) => {
+    setThours(e.target.value)
+  }
+  const onMinsChange = (e) => {
+    setTmins(e.target.value)
+  }
+  const loadImages = async () => {
+    // const loadImgPath = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/cam4-m`
+    const loadImgPath = `cam_images/cam4/${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}`
+    console.log(loadImgPath);
+    const imagesArr = await getReadImgfile(loadImgPath);
+    if(imagesArr){
+      const loadingPath = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${imagesArr[0].name}`
+      setLoaderPath(loadingPath);
+    }else{
+      alert('There is not the image');
+    }
+    
   }
   return (
     <div>
@@ -76,47 +108,103 @@ export const Archive = () => {
       <Box>
         <Container>
           <Stack direction="row" justifyContent="start" alignItems="center" useFlexGap>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Year</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               value={tyear}
-              options={yearlist}
-              sx={{ width: 150 }}
-              renderInput={(params) => <TextField {...params} type='number' label="Year" />}
-            />
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
+              label="Year"
+              onChange={(e) => {onYearChange(e)}}
+            >
+               {yearlist.map((yearItem) => (
+                <MenuItem
+                  key={yearItem}
+                  value={yearItem}
+                >
+                  {yearItem}
+                </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Month</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               value={tmonth}
-              options={monthlist}
-              sx={{ width: 150 }}
-              renderInput={(params) => <TextField {...params} type='number' label="Month" />}
-            />
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
+              label="Month"
+              onChange={(e) => {onMonthChange(e)}}
+            >
+               {monthlist.map((monthItem) => (
+                <MenuItem
+                  key={monthItem}
+                  value={monthItem}
+                >
+                  {monthItem}
+                </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Day</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               value={tdate}
-              options={daylist}
-              sx={{ width: 150 }}
-              renderInput={(params) => <TextField {...params} type='number' label="Day" />}
-            />
+              label="Day"
+              onChange={(e) => {onDayChange(e)}}
+            >
+               {daylist.map((datyItem) => (
+                <MenuItem
+                  key={datyItem}
+                  value={datyItem}
+                >
+                  {datyItem}
+                </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
             <span style={{paddingLeft: "30px", paddingRight: "30px"}}></span>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Hour</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               value={thours}
-              options={hrList}
-              sx={{ width: 150 }}
-              renderInput={(params) => <TextField {...params} type='number' label="Hour" />}
-            />
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
+              label="Hour"
+              onChange={(e) => {onHourChange(e)}}
+            >
+               {hrList.map((hrItem) => (
+                <MenuItem
+                  key={hrItem}
+                  value={hrItem}
+                >
+                  {hrItem}
+                </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Min</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               value={tmins}
-              options={minList}
-              sx={{ width: 150 }}
-              renderInput={(params) => <TextField {...params} type='number' label="MINUTE" />}
-            />
+              label="Min"
+              onChange={(e) => {onMinsChange(e)}}
+            >
+               {minList.map((minItem) => (
+                <MenuItem
+                  key={minItem}
+                  value={minItem}
+                >
+                  {minItem}
+                </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <Button variant='contained' onClick={() => {loadImages()}} sx={{height: '56px', paddingX: '10px'}} size='large'>Load</Button>
           </Stack>
         </Container>
       </Box>
@@ -129,7 +217,7 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={testImg}
+                    image={loaderpath}
                     onClick={() => {handleOpen()}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
@@ -144,12 +232,12 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={testImg}
+                    image={loaderpath}
                     onClick={() => {handleOpen()}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
-                      <Typography sx={{textAlign: 'center'}}>Camera 1 NE</Typography>
+                      <Typography sx={{textAlign: 'center'}}>Camera 4 NE</Typography>
                     </Stack>
                   </Stack>
                 </Card>
@@ -159,12 +247,12 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={testImg}
+                    image={loaderpath}
                     onClick={() => {handleOpen()}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
-                      <Typography sx={{textAlign: 'center'}}>Camera 1 SE</Typography>
+                      <Typography sx={{textAlign: 'center'}}>Camera 3 SE</Typography>
                     </Stack>
                   </Stack>
                 </Card>
@@ -174,12 +262,12 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={testImg}
+                    image={loaderpath}
                     onClick={() => {handleOpen()}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
-                      <Typography sx={{textAlign: 'center'}}>Camera 1 SW</Typography>
+                      <Typography sx={{textAlign: 'center'}}>Camera 4 SW</Typography>
                     </Stack>
                   </Stack>
                 </Card>
@@ -196,7 +284,7 @@ export const Archive = () => {
         aria-describedby="keep-mounted-modal-description"
       >
         <Box sx={style}>
-          <img style={{width: '100%'}} src={testImg} />
+          <img style={{width: '100%'}} src={loaderpath} />
         </Box>
       </Modal>
     </div>
