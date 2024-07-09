@@ -237,7 +237,7 @@ export const Archive = () => {
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
-                      <Typography sx={{textAlign: 'center'}}>Camera 4 NE</Typography>
+                      <Typography sx={{textAlign: 'center'}}>Camera 2 NE</Typography>
                     </Stack>
                   </Stack>
                 </Card>
