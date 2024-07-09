@@ -8,8 +8,8 @@ import Modal from '@mui/material/Modal';
 import weatherBrand from '../../assets/weatherBrand.png';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { getWeatherData, getReadImgfile } from '../../apis/apiProvider';
-
+import { getWeatherData, getReadImgfile, getCamFourFiles } from '../../apis/apiProvider';
+const hostPath = 'https://denalicams.com';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -37,16 +37,22 @@ export const Home = () => {
   const [windSpeed, setWindSpeed] = React.useState(0);
   const [barometer, setBarometer] = React.useState(0);
   const [isUpBarometer, setIsUpBarometer] = React.useState(false);
+  const [imagePath, setImagePath] = React.useState(testImg);
   const handleClose = () => {
     setEnlargeOpen(false);
   }
   
   React.useEffect(() => {
+    loadCamForData();
     loadWeatherData()
     const loadInterval = setInterval(()=>{ loadWeatherData()}, 60000);
     return () => clearInterval(loadInterval);
   }, [])
   
+  const loadCamForData = async () => {
+    const imagesData = await getCamFourFiles('cam4');
+    setImagePath(`${hostPath}${imagesData.path}/${imagesData.imagelist[0].name}`);
+  }
 
   const loadWeatherData = async () => {
     const weatherData = await getWeatherData();
@@ -87,7 +93,7 @@ export const Home = () => {
                       <CardMedia
                         component="img"
                         alt="Yosemite National Park"
-                        image={testImg}
+                        image={imagePath}
                         onClick={() => {handleOpen()}}
                       />
                       <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
@@ -110,7 +116,7 @@ export const Home = () => {
                       <CardMedia
                         component="img"
                         alt="Yosemite National Park"
-                        image={testImg}
+                        image={imagePath}
                         onClick={() => {handleOpen()}}
                       />
                       <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
@@ -133,7 +139,7 @@ export const Home = () => {
                       <CardMedia
                         component="img"
                         alt="Yosemite National Park"
-                        image={testImg}
+                        image={imagePath}
                         onClick={() => {handleOpen()}}
                       />
                       <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
@@ -156,7 +162,7 @@ export const Home = () => {
                       <CardMedia
                         component="img"
                         alt="Yosemite National Park"
-                        image={testImg}
+                        image={imagePath}
                         onClick={() => {handleOpen()}}
                       />
                       <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} paddingTop={1}>
@@ -247,7 +253,7 @@ export const Home = () => {
           aria-describedby="keep-mounted-modal-description"
         >
           <Box sx={style}>
-            <img style={{maxWidth: '500px'}} src={testImg} onClick={getImagefiles()}/>
+            <img style={{maxWidth: '500px'}} src={testImg} onClick={() => getImagefiles()}/>
           </Box>
         </Modal>
       </Container>

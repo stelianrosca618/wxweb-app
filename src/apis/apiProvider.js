@@ -1,12 +1,30 @@
 import axios from 'axios';
 const apiProd = 'http://164.92.67.83:4000'
 const apiLocal = 'http://localhost:4000'
+const realPath = apiLocal;
+
+export const getCamFourFiles = async (camStr) => {
+  let camForFiles = null;
+    await axios({
+        method:'post',
+        url: `${realPath}/wximgs/readCamImgs`,
+        data: {camStr},
+      }).then(function (response) {
+        camForFiles = response.data;
+        console.log(camForFiles);
+      }).catch(function (error) {
+        camForFiles = null;
+        console.log('errors', error)
+      })
+
+    return camForFiles;
+}
 
 export const getReadImgfile = async () => {
   let weatherData = null;
     await axios({
         method:'post',
-        url: `${apiProd}/wximgs/readImgfile`,
+        url: `${realPath}/wximgs/readImgfile`,
         data: {},
       }).then(function (response) {
         weatherData = response.data;
@@ -22,7 +40,7 @@ export const getWeatherData = async () => {
     let weatherData = null;
     await axios({
         method:'post',
-        url: `${apiProd}/wximgs/readWeatherData`,
+        url: `${realPath}/wximgs/readWeatherData`,
         data: {},
       }).then(function (response) {
         weatherData = response.data;
@@ -38,7 +56,7 @@ export const getWeatherTrends = async () => {
     let trendsData = [];
     await axios({
         method:'post',
-        url: `${apiProd}/wximgs/readWeadtheTrends`,
+        url: `${realPath}/wximgs/readWeadtheTrends`,
         data: {},
       }).then(function (response) {
         trendsData = response.data;
