@@ -6,6 +6,7 @@ import { mangoFusionPalette } from '@mui/x-charts/colorPalettes';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import testImg from '../../assets/data/cam1,m240408180000864.jpg'
+import emptyImg from "../../assets/empty.png";
 import Modal from '@mui/material/Modal';
 import { getReadImgfile } from '../../apis/apiProvider';
 
@@ -32,7 +33,11 @@ export const Archive = () => {
   const [tmonth, setTmonth] = React.useState(tdayData.getMonth() + 1);
   const [thours, setThours] = React.useState(tdayData.getHours()+1);
   const [tmins, setTmins] = React.useState(tdayData.getMinutes());
-  const [loaderpath, setLoaderPath] = React.useState(testImg);
+  const [cam1Img, setCam1Img] = React.useState(emptyImg);
+  const [cam2Img, setCam2Img] = React.useState(emptyImg);
+  const [cam3Img, setCam3Img] = React.useState(emptyImg);
+  const [cam4Img, setCam4Img] = React.useState(emptyImg);
+  const [modalImg, setModalImg] = React.useState(emptyImg);
   const monthlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   let daylist = [];
   let hrList = [];
@@ -49,7 +54,21 @@ export const Archive = () => {
   const handleClose = () => {
     setEnlargeOpen(false);
   }
-  const handleOpen = () => {
+  const handleOpen = (num) => {
+    switch(num){
+      case 1:
+        setModalImg(cam1Img);
+        break;
+      case 2:
+        setModalImg(cam2Img);
+        break;
+      case 3:
+        setModalImg(cam3Img);
+        break;
+      case 4:
+        setModalImg(cam4Img);
+        break
+    }
     setEnlargeOpen(true);
   }
 
@@ -72,12 +91,33 @@ export const Archive = () => {
   }
   const loadImages = async () => {
     // const loadImgPath = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/cam4-m`
-    const loadImgPath = `cam_images/cam4/${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}`
+    const loadImgPath = `${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}`
     console.log(loadImgPath);
     const imagesArr = await getReadImgfile(loadImgPath);
     if(imagesArr){
-      const loadingPath = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${imagesArr[0].name}`
-      setLoaderPath(loadingPath);
+      console.log(imagesArr);
+      if(imagesArr.cam1){
+        const cam1ImgArr = imagesArr.cam1;
+        const cam1Path = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${cam1ImgArr[0].name}`
+        setCam1Img(cam1Path)
+      }
+      if(imagesArr.cam2){
+        const cam2ImgArr = imagesArr.cam2;
+        const cam2Path = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${cam2ImgArr[0].name}`
+        setCam2Img(cam2Path)
+      }
+      if(imagesArr.cam3){
+        const cam3ImgArr = imagesArr.cam3;
+        const cam3Path = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${cam3ImgArr[0].name}`
+        setCam3Img(cam3Path)
+      }
+      if(imagesArr.cam4){
+        const cam4ImgArr = imagesArr.cam4;
+        const cam4Path = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${cam4ImgArr[0].name}`
+        setCam4Img(cam4Path)
+      }
+      // const loadingPath = `${hostPath}${tyear.toString().padStart(2, '0')}/${tmonth.toString().padStart(2, '0')}/${tdate.toString().padStart(2, '0')}/${thours.toString().padStart(2, '0')}/${imagesArr[0].name}`
+      // setLoaderPath(loadingPath);
     }else{
       alert('There is not the image');
     }
@@ -217,8 +257,8 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={loaderpath}
-                    onClick={() => {handleOpen()}}
+                    image={cam1Img}
+                    onClick={() => {handleOpen(1)}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
@@ -232,8 +272,8 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={loaderpath}
-                    onClick={() => {handleOpen()}}
+                    image={cam2Img}
+                    onClick={() => {handleOpen(2)}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
@@ -247,8 +287,8 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={loaderpath}
-                    onClick={() => {handleOpen()}}
+                    image={cam3Img}
+                    onClick={() => {handleOpen(3)}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
@@ -262,8 +302,8 @@ export const Archive = () => {
                   <CardMedia
                     component="img"
                     alt="Yosemite National Park"
-                    image={loaderpath}
-                    onClick={() => {handleOpen()}}
+                    image={cam4Img}
+                    onClick={() => {handleOpen(4)}}
                   />
                   <Stack direction="row" alignItems="center" justifyContent="center" spacing={3} p={2} useFlexGap>
                     <Stack direction="column" spacing={0.5} useFlexGap>
@@ -284,7 +324,7 @@ export const Archive = () => {
         aria-describedby="keep-mounted-modal-description"
       >
         <Box sx={style}>
-          <img style={{width: '100%'}} src={loaderpath} />
+          <img style={{width: '100%'}} src={modalImg} />
         </Box>
       </Modal>
     </div>

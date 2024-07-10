@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import testImg from '../../assets/data/cam1,m240408180000864.jpg'
+import emptyImg from "../../assets/empty.png";
 import {Link, Card, CardMedia, Stack, Typography, Container } from '@mui/material';
 import {Button} from '@mui/material';
 import Modal from '@mui/material/Modal';
@@ -37,7 +37,7 @@ export const Home = () => {
   const [windSpeed, setWindSpeed] = React.useState(0);
   const [barometer, setBarometer] = React.useState(0);
   const [isUpBarometer, setIsUpBarometer] = React.useState(false);
-  const [imagePath, setImagePath] = React.useState(testImg);
+  const [imagePath, setImagePath] = React.useState(emptyImg);
   const handleClose = () => {
     setEnlargeOpen(false);
   }
